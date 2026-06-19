@@ -1,6 +1,7 @@
 <?php
 
-use App\Http\Controllers\AuthController;
+
+use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\DocumentController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -28,13 +29,21 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::middleware('auth:api')->group(function() {
 
+// Récupérer le profil de l'utilisateur connecté
+    Route::get('/user', function (Request $request) {
+        // On charge la relation 'role' pour savoir instantanément qui il est
+        return response()->json([
+            'user' => $request->user()
+        ], 200);
+    });
+
     // Déconnexion
     Route::post('/logout', [AuthController::class, 'logout']);
 
     // --------------------------------------
     // 👤 ESPACE CANDIDAT (role: candidate)
     // --------------------------------------
-    Route::middleware('role:candidate')->prefix('candidate')->group(function () {
+    Route::middleware('role:candidat')->prefix('candidate')->group(function () {
         // Soumettre un nouveau document/dossier
         Route::post('/documents', [DocumentController::class,'store']);
 

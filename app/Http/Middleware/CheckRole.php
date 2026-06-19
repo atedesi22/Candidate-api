@@ -17,7 +17,7 @@ class CheckRole
     public function handle(Request $request, Closure $next, string $role): Response
     {
         // 1. Vérifier si l'utilisateur est authentifié
-        if(!request->user()){
+        if(!$request->user()){
             return response()->json([
                 'message' => 'Utilisateur non authentifié.'
             ], 401);
