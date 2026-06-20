@@ -3,6 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\User;
+use Database\Seeders\DocumentSeeder;
 use Database\Seeders\Roleseeder;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -19,7 +20,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             Roleseeder::class,
-            // UserSeeder::class,
+            UserSeeder::class,
+            DocumentSeeder::class,
         ]);
 
         $path = database_path('migrations/oauth_clients_202606181552.sql');

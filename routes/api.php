@@ -1,6 +1,7 @@
 <?php
 
 
+use App\Http\Controllers\API\Admin\AdminDocumentController;
 use App\Http\Controllers\API\AuthController;
 use App\Http\Controllers\DocumentController;
 use Illuminate\Http\Request;
@@ -56,13 +57,13 @@ Route::middleware('auth:api')->group(function() {
     // --------------------------------------
     Route::middleware('role:admin')->prefix('admin')->group(function () {
         // Consulter tous les documents soumis par les candidats
-        Route::get('/documents', [DocumentController::class,'index']);
+        Route::get('/documents', [AdminDocumentController::class,'index']);
 
         // Consulter un document spécifique par son ID
-        Route::get('/documents/{id}', [DocumentController::class,'show']);
+        Route::get('/documents/{id}', [AdminDocumentController::class,'show']);
 
         // Mettre à jour le statut d'un document (approuver ou rejeter)
-        Route::put('/documents/{id}/status', [DocumentController::class,'updateStatus']);
+        Route::put('/documents/{id}/status', [AdminDocumentController::class,'updateStatus']);
     });
 
 });
